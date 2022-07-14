@@ -14,7 +14,7 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -23,8 +23,10 @@ class ResumeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return 'hola mundo';
+    {   //enviar informacion desde el controladro a la vista
+        //$data=120;
+        //return view('resumes.create',['data'=>$data]);
+        return view('resumes.create');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ResumeController;
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +17,7 @@ use App\Http\Controllers\ResumeController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Auth::routes();
 
@@ -35,3 +36,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //
 Route::get('resumes/create',[ResumeController::class,'create'])->name('create');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
