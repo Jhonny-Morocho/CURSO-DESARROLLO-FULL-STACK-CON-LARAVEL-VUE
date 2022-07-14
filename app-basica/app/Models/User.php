@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    //en plurar por que pertenece  varios
+    public function resumes(){
+        //un usuario tiene varios curriculos
+        return $this->hasMany(Resume::class);
+        
+    }
 }

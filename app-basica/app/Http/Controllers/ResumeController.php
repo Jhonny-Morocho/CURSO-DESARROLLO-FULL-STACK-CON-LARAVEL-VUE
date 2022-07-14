@@ -36,8 +36,14 @@ class ResumeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $user=auth()->user();
+        $resume= $user->resumes()->create([
+            'title'=>$request['title'],
+            'name'=>$user->name,
+            'email'=>$user->email,
+        ]);
+        return response('Created resuem '.$resume->id);
     }
 
     /**
