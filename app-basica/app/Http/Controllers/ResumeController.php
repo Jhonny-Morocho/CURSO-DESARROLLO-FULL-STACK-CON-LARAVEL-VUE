@@ -12,9 +12,15 @@ class ResumeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //tambien puedo crear un contructor asi// si no esta atuenticado no pude realizar las demas operaciones
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        
+        $resumes=auth()->user()->resumes;
+        return view('resumes.index',compact('resumes'));
     }
 
     /**

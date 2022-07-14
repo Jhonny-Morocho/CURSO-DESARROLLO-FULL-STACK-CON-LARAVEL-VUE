@@ -27,4 +27,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/resumes/create',[ResumeController::class,'create'])->name('resumes.create');
 Route::post('/resumes',[ResumeController::class,'store'])->name('resumes.store');
+Route::get('/resumes',[ResumeController::class,'index'])->name('resumes.index');
+Route::get('/resumes/{resume}/edit',[ResumeController::class,'edit'])->name('resumes.edit');
+Route::delete('/resumes/{resume}',[ResumeController::class,'destroy'])->name('resumes.destroy');
+Route::delete('/resumes',[ResumeController::class,'show'])->name('resumes.show');
+
 
