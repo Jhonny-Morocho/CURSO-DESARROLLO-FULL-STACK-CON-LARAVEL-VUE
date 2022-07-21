@@ -14,7 +14,11 @@
             @foreach ($resumes as $resume)
             <tr>
                 <th scope="row">{{ $resume->id }}</th>
-                <td>{{ $resume->title }}</td>
+                <td>
+                    <a href="{{ route('resumes.show',$resume->id) }}">
+                        {{ $resume->title }}
+                    </a>
+                </td>
                 <td>
                     <div class="d-flex justify-content-end">
                         <div>
@@ -23,7 +27,7 @@
                             </a>
                         </div>
                         <div class="ml-2">
-                            <a href="{{ route('resumes.edit',$resume->id) }}" class="btn btn-danger">
+                            <a href="{{ route('resumes.destroy',$resume->id) }}" class="btn btn-danger">
                                 Delete
                             </a>
                         </div>
