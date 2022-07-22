@@ -89,6 +89,11 @@ class ResumeController extends Controller
     public function edit(Resume $resume)
     {
         //
+/*         if($resume->user_id!== auth()->user()->id){
+            abort(403);
+            return;
+        } */
+        $this->authorize('update',$resume);
         return view('resumes.edit',compact('resume'));
     }
 
@@ -137,7 +142,14 @@ class ResumeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Resume $resume)
-    {
-        //
+    {   
+
+        try {
+            $this->authorize('delete',$resume);
+            $resume->delete();
+            return redirect()->route('resumes.index')->with('alert',['type'=>'success','message'=>'Resume eliminado']);
+        } catch (\Throwable $th) {
+            return redirect()->route('resumes.index')->with('alert',['type'=>'danger','message'=>'Error al eliminar resumen']);
+        }
     }
 }
