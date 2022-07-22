@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 //personalizar validacion
 //use Illuminate\Validation\Rule;¿
 use Illuminate\Validation\Rule;
+//use Intervention\Image\Facades\Image;
+use Intervention\Image\Facades\Image;
 class ResumeController extends Controller
 {
     /**
@@ -47,20 +49,24 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {   
-        $user=auth()->user();
-        $resume=$user->resumes()->where('title',$request->title)->first();
-        if($resume){
-            return back()
-                    ->withErrors(['title'=>'Yo already a resumes whit this title'])
-                    ->withInput(['title'=>$request->title]);
+        try {
+            //code...
+            $user=auth()->user();
+            $resume=$user->resumes()->where('title',$request->title)->first();
+            if($resume){
+                return back()
+                        ->withErrors(['title'=>'Yo already a resumes whit this title'])
+                        ->withInput(['title'=>$request->title]);
+            }
+            $resume= $user->resumes()->create([
+                'title'=>$request['title'],
+                'name'=>$user->name,
+                'email'=>$user->email,
+            ]);
+            return redirect()->route('resumes.index')->with('alert',['type'=>'success','message'=>'Resume guardado']);
+        } catch (\Throwable $th) {
+            return redirect()->route('resumes.index')->with('alert',['type'=>'success','message'=>'Error al guardar resume']);
         }
-        $resume= $user->resumes()->create([
-            'title'=>$request['title'],
-            'name'=>$user->name,
-            'email'=>$user->email,
-        ]);
-        return redirect()->route('resumes.index');
-        //return response('Resumen registrado exitosamente '.$resume->id);
     }
 
     /**
@@ -96,18 +102,32 @@ class ResumeController extends Controller
     public function update(Request $request, Resume $resume)
     {
         //
-        $data=$request->validate([
-            'name'=>'required|string',
-            'email'=>'required|email',
-            'website'=>'nullable|url',
-            'picture'=>'nullable|image',
-            'about'=>'nullable|string',
-            'title'=>Rule::unique('resumes')->where(function($query) use($resume){
-                return $query->where('user_id',$resume->user_id);
-            })->ignore($resume->id)
-        ]);
-        dd($data);
-        //return redirect()->route('resumes.update');
+/*         return  (    Rule::unique('users')->ignore($resume->user_id));
+        return (Rule::unique('resumes'));
+        return (Resume::get()->where('user_id',1))->ignore();
+        return (Rule::unique('resume')->where(fn($query)=>$query->where('user_id'),1)); */
+        try {
+            //code...
+            $data=$request->validate([
+                'name'=>'required|string',
+                'email'=>'required|email',
+                'website'=>'nullable|url',
+                'picture'=>'nullable|image',
+                'about'=>'nullable|string',
+                'title'=> ['required',Rule::unique('resumes')
+                            ->where(fn($query)=>$query->where('user_id',$resume->user_id)
+                            )->ignore($resume->id)]
+            ]);
+            if(array_key_exists('picture', $data)){
+             $picture=$data['picture']->store('pictures','public');
+             Image::make(public_path("storage/$picture"))->fit(800,800)->save();
+             $data['picture']=$picture;
+            }
+            $resume->update($data);
+            return redirect()->route('resumes.index')->with('alert',['type'=>'success','message'=>'Resume actulizado']);
+        } catch (\Throwable $th) {
+            return redirect()->route('resumes.index')->with('alert',['type'=>'danger','message'=>'Error al actulizar resume']);
+        }
     }
 
     /**

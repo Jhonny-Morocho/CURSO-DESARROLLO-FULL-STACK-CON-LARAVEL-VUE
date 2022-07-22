@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">
                                 Name
                             </label>
                             <div class="col-md-6">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">
                                 Email
                             </label>
                             <div class="col-md-6">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">
+                            <label for="Website" class="col-md-4 col-form-label text-md-end">
                                 Website
                             </label>
                             <div class="col-md-6">
@@ -88,7 +88,7 @@
                                     class="form-control 
                                     @error('website') is-invalid 
                                     @enderror" 
-                                    name="title" 
+                                    name="website" 
                                     value="{{ old('website')?? $resume->website }}" 
                                     autocomplete="website" 
                                     autofocus>
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">
+                            <label for="picture" class="col-md-4 col-form-label text-md-end">
                                 Picture
                             </label>
                             <div class="col-md-6">
@@ -110,7 +110,7 @@
                                     class="form-control 
                                     @error('picture') is-invalid 
                                     @enderror" 
-                                    name="title" 
+                                    name="picture" 
                                     value="{{ old('picture') }}" 
                                     autocomplete="picture" 
                                     autofocus>
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">
+                            <label for="about" class="col-md-4 col-form-label text-md-end">
                                 Abaut
                             </label>
                             <div class="col-md-6">
@@ -132,7 +132,7 @@
                                     class="form-control 
                                     @error('about') is-invalid 
                                     @enderror" 
-                                    name="title" 
+                                    name="about" 
                                     value="{{ old('about')?? $resume->about }}" 
                                     autocomplete="about" 
                                     autofocus>
