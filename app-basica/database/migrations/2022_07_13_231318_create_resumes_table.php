@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('website')->nullable();
-            $table->string('pircture')->nullable();
+            $table->string('picture')->default('/storage/pictures/user.jpg');
             $table->string('about')->nullable();
             
         });
